@@ -1,0 +1,122 @@
+#container {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+    height: auto;
+
+    input, textarea, select {
+        border: 1px solid #ced3d8;
+    }
+
+    .label {
+        display: inline-block;
+        width: 3em;
+        vertical-align: top;
+        font-size: 1em;
+    }
+
+    .details {
+        width: 100%;
+        border: 1px solid #ced3d8;
+        padding: 15px;
+        box-sizing: border-box;
+        
+        h3 {
+            font-weight: 600;
+            line-height: 1.2;
+            font-size: 2rem;
+        }
+    
+        input {
+            width: 95%;
+        }
+    
+        textarea {
+            width: 95%;
+            padding: .5em 0;
+            font: 400 13.3333px Arial;
+        }
+    
+        .toolbar {
+            display: block;
+            // margin-left: 4.3em;
+    
+            button {
+                margin-top: 10px;
+                border-style: unset;
+            }
+        }
+    
+        #create-feedback {
+            display: block;
+        }
+    
+        #update-feedback {
+            display: none;
+        }
+    }
+    
+    .filters {
+        margin: 15px 0;
+    
+        .label {
+            width: auto;
+            vertical-align: middle;
+        }
+    
+        input, select {
+            vertical-align: middle;
+        }
+
+        input {
+            width: 8em;
+        }
+    
+        select {
+            line-height: 2em;
+        }
+        
+        button {
+            border-style: unset;
+            vertical-align: middle;
+        }
+    }
+
+    table thead tr {
+        th {
+            font-size: 1.1em;
+            padding: 3px;
+        }
+    }
+}
+
+
+table tr td, table tr th{
+	position: relative;
+	height: 29px;
+	div {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 29px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		vertical-align: middle;
+		padding: 8px;
+	}
+}
+
+
+#all-feedback, #all-admin {
+    display: none;
+}
+
+#all-feedback .details {
+    display: none;
+}
+
+#own-feedback {
+    display: block;
+}
