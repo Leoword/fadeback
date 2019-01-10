@@ -16,9 +16,9 @@
 		<div id="container">
 			<div id="own-feedback">
 				<div class="filters">
-					<span class="label">标题：</span> <input type="text" /> 
-					<button class="primary">查找</button>
-					<nav id="page-" style="float: right" class="page" aria-label="Page navigation">
+					<span class="label">标题：</span> <input type="text" name="title" /> 
+					<button class="primary" data-operate="search">查找</button>
+					<nav id="page-ownfeedback" style="float: right" class="page" aria-label="Page navigation">
 						<ul class="pagination pagination-sm">
 						</ul>
 					</nav>
@@ -44,10 +44,10 @@
 						<option>已审阅</option>
 						<option>未审阅</option>
 					</select> -->
-					<span class="label">标题：</span> <input type="text" /> 
-					<span class="label ml-2">来源用户：</span> <input type="text" /> 
-					<button class="primary ml-2">查找</button>
-					<nav id="page-" style="float: right" class="page" aria-label="Page navigation">
+					<span class="label">标题：</span> <input type="text" name="title" /> 
+					<span class="label ml-2">来源用户：</span> <input type="text" name="origin" /> 
+					<button class="primary ml-2" data-operate="search">查找</button>
+					<nav id="page-allfeedback" style="float: right" class="page" aria-label="Page navigation">
 						<ul class="pagination pagination-sm">
 						</ul>
 					</nav>
@@ -68,18 +68,21 @@
 			</div>
 			<div id="all-admin">
 				<div class="filters">
-					<span class="label">管理员：</span>
-					<select>
-						<option>全部</option>
-						<option>是</option>
-						<option>否</option>
+					<span class="label">人员：</span>
+					<select name="isAdmin">
+						<option value="0">全部</option>
+						<option value="1">管理员</option>
+						<option value="-1">非管理员</option>
 					</select>
-					<span class="label ml-2">用户名：</span> <input type="text" /> 
-					<button class="primary ml-2">查找</button>
-					<nav id="page-" style="float: right" class="page" aria-label="Page navigation">
-						<ul class="pagination pagination-sm">
-						</ul>
-					</nav>
+					<span class="label ml-2">用户名：</span> <input type="text" name="username" /> 
+					<span class="label ml-2">姓名：</span> <input type="text" name="name" /> 
+					<button class="primary ml-2" data-operate="search">查找</button>
+					<div class="mt-1">
+						<nav id="page-alladmin" style="float: right; top: 2px!important;" class="page" aria-label="Page navigation">
+							<ul class="pagination pagination-sm">
+							</ul>
+						</nav>
+					</div>
 				</div>
 				<!-- <table class="table table-bordered table-striped">
 					<thead>

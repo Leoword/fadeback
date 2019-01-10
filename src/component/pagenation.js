@@ -1,15 +1,15 @@
 
 var _ = require('underscore');
 
-module.exports = function getDataList(pagenationId, length, showNumber, showRow, callback) {
+module.exports = function getDataList(pagenationId, length, showNumber, showRow, callback, currentNumber) {
 	var pagenation = $(`${pagenationId} ul`);
-	var currentNumber = 1;
+	// var currentNumber = 1;
 
 	if (!pagenation) {
 		return;
 	}
 
-	var totalNumber = Math.ceil(length / showRow);
+	var totalNumber = Math.ceil(length / showRow) === 0 ? 1 :  Math.ceil(length / showRow);
 
 	pagenationInit (pagenationId, showNumber, currentNumber, totalNumber, showRow, callback);
 }

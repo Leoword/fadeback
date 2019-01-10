@@ -18,6 +18,7 @@ application.devServer = {
 	inline: false,
 	host: 'localhost',
 	proxy: {
+		'/api': 'http://localhost:8080',
 	}
 };
 

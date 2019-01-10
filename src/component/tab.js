@@ -1,4 +1,9 @@
 var _ = require('underscore');
+var ajax = require('../util/ajax');
+
+var createAllFeedback = require('./allFeedback');
+var createownFeedback = require('./ownFeedback');
+var createAllAdmin = require('./adminList');
 
 module.exports = function () {
     var ownFeedback  = $('#own-feedback');
@@ -17,11 +22,34 @@ module.exports = function () {
         <span>管理员管理</span>
     `);
 
-    appendToContainer([retriveShow, allShow, adminShow]);
+    ajax(`/api/account?timestamp=${new Date().getTime()}`, 'get', {
+        success: function(res) {
+            var isAdmin = res.isAdmin;
 
-    activeItem(allShow, allFeedback);
-    activeItem(retriveShow, ownFeedback);
-    activeItem(adminShow, allAdmin);
+            if (isAdmin) {
+                appendToContainer([retriveShow, allShow, adminShow]);
+
+                activeItem(allShow, allFeedback);
+                activeItem(retriveShow, ownFeedback);
+                activeItem(adminShow, allAdmin);
+
+                createAllAdmin();
+                createAllFeedback();
+                createownFeedback();
+            } else {
+                appendToContainer([retriveShow]);
+
+                activeItem(retriveShow, ownFeedback);
+
+                createownFeedback();
+            }
+        },
+        error: function() {
+            appendToContainer([retriveShow]);
+
+            activeItem(retriveShow, ownFeedback);
+        }
+    });
 }
 
 function activeItem(item, itemPage) {
