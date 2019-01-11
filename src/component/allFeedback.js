@@ -19,7 +19,6 @@ module.exports = function () {
     allFeedback.prepend(detailRetrive);
 
     allFeedback.append(tableFactory({
-        serial: '序号',
         title: '标题',
         origin: '来源用户',
         deal: '处理人员',
@@ -33,7 +32,7 @@ var allFeedbackComponent = {
     allFeedback: [],
     currentNumber: 1,
     getAllFeedback() {
-        ajax(`/api/topic/all?timestamp=${new Date().getTime()}`, 'get', {
+        ajax(`/api/admin/topic?timestamp=${new Date().getTime()}`, 'get', {
             success: function (res) {
                 allFeedbackComponent.allFeedback = _.map(res, function (item, index) {
                     return {
@@ -59,13 +58,12 @@ var allFeedbackComponent = {
         _.each(list, function (topic) {
             ownTopicTable.append(`
                 <tr>
-                    <td><div>${topic.serial}</div></td>
-                    <td class="pointer" data-retrive="${topic.id}" data-click="true">
+                    <td class="pointer title" data-retrive="${topic.id}" data-click="true">
                         <div><a>${topic.title}</div></a>
                     </td>
-                    <td><div>${topic.origin}</div></td>
-                    <td><div>${topic.deal}</div></td>
-                    <td><div>${topic.create}</div></td>
+                    <td class="origin"><div>${topic.origin}</div></td>
+                    <td class="deal"><div>${topic.deal}</div></td>
+                    <td class="create-title"><div>${topic.create}</div></td>
                 </tr>
             `)
         });
@@ -80,7 +78,7 @@ var allFeedbackComponent = {
         topicRetrive.click(function (event) {
             var topicId = $(event.currentTarget).attr('data-retrive');
   
-            ajax(`/api/topic/${topicId}?timestamp=${new Date().getTime()}`, 'get', {
+            ajax(`/api/admin/topic/${topicId}?timestamp=${new Date().getTime()}`, 'get', {
                 success(res) {
                     if ($('#all-feedback .details').css('display') === 'none') {
 
@@ -90,13 +88,16 @@ var allFeedbackComponent = {
                     titleObj.val(res.title);
                     contentObj.val(res.content);
 
-                    allFeedbackComponent.setViewLable(topicId);
+                    if (!res.adminId) {
+
+                        allFeedbackComponent.setViewLable(topicId);
+                    }
                 }
             });
         });
     },
     setViewLable(id) {
-        ajax(`/api/topic/${id}/review`, 'patch', {
+        ajax(`/api/admin/topic/${id}/review`, 'patch', {
             success(res) {
                 allFeedbackComponent.getAllFeedback();
             }

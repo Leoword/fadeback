@@ -9,7 +9,6 @@ module.exports = function () {
     var allAdmin = $('#all-admin');
 
     allAdmin.append(tableFactory({
-        serial: '序号',
         username: '用户名',
         name: '姓名',
         admin: '管理员',
@@ -23,7 +22,7 @@ var adminComponent = {
     adminList: [],
     currentNumber: 1,
     getAdminList() {
-        ajax(`/api/user?timestamp=${new Date().getTime()}`, 'get', {
+        ajax(`/api/admin/user?timestamp=${new Date().getTime()}`, 'get', {
             success(res) {
                 adminComponent.adminList = _.map(res, function (item, index) {
                     return {
@@ -48,13 +47,12 @@ var adminComponent = {
         _.each(list, function (user) {
             adminTable.append(`
                 <tr>
-                    <td><div>${user.serial}</div></td>
-                    <td class="pointer" data-click="true">
+                    <td class="pointer username" data-click="true">
                         <div><a>${user.username}</a></div>
                     </td>
-                    <td><div>${user.name}</div></td>
-                    <td><div>${user.isAdmin ? '是' : '否'}</div></td>
-                    <td><div>${user.isAdmin ? `<button class="danger" data-operate="delete"  data-retrive="${user.id}">删除</button>` :
+                    <td class="name"><div>${user.name}</div></td>
+                    <td class="admin"><div>${user.isAdmin ? '是' : '否'}</div></td>
+                    <td class="give-admin"><div>${user.isAdmin ? `<button class="danger" data-operate="delete"  data-retrive="${user.id}">删除</button>` :
                         `<button class="success" data-operate="give" data-retrive="${user.id}">赋予</button>`}</div></td>
                 </tr>
             `)
@@ -83,7 +81,7 @@ var adminComponent = {
         });
     },
     updateAdmin(accountId, isAdmin) {
-        ajax(`/api/user/${accountId}`, 'put', {
+        ajax(`/api/admin/user/${accountId}`, 'put', {
             data: window.JSON.stringify({
                 isAdmin: isAdmin
             }),

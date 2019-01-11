@@ -19,7 +19,6 @@ module.exports = function () {
     ownFeedback.prepend(detailRetrive);
 
     ownFeedback.append(tableFactory({
-        serial: '序号',
         title: '标题',
         deal: '处理人员',
         'create-time': '创建时间'
@@ -63,12 +62,11 @@ var ownFeedbackComponent = {
         _.each(list, function (topic) {
             ownTopicTable.append(`
                 <tr>
-                    <td><div>${topic.serial}</div></td>
-                    <td class="pointer" data-retrive="${topic.id}" data-click="true">
+                    <td class="pointer title" data-retrive="${topic.id}" data-click="true">
                         <div><a>${topic.title}</a></div>
                     </td>
-                    <td><div>${topic.deal}</div></td>
-                    <td><div>${topic.create}</div></td>
+                    <td class="deal"><div>${topic.deal}</div></td>
+                    <td class="create-time"><div>${topic.create}</div></td>
                 </tr>
             `)
         });
