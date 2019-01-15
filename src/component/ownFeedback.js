@@ -13,7 +13,7 @@ var detailRetrive = detailFactory({
     toolbar: true
 });
 
-module.exports = function () {
+function createOwnFeedback() {
     var ownFeedback = $('#own-feedback');
 
     ownFeedback.prepend(detailRetrive);
@@ -24,18 +24,21 @@ module.exports = function () {
         'create-time': '创建时间'
     }));
 
-    ownFeedbackComponent.getTableData();
-    ownFeedbackComponent.resetTopic();
-    ownFeedbackComponent.backToCreate();
-    ownFeedbackComponent.watchInput();
-    ownFeedbackComponent.updateTopic();
-    ownFeedbackComponent.deleteTopic();
-}
+    ownFeedbackComponent.init();
+};
 
 var ownFeedbackComponent = {
     ownTopicList: [],
     retriveTopicId: null,
     currentNumber: 1,
+    init() {
+        ownFeedbackComponent.getTableData();
+        ownFeedbackComponent.resetTopic();
+        ownFeedbackComponent.backToCreate();
+        ownFeedbackComponent.watchInput();
+        ownFeedbackComponent.updateTopic();
+        ownFeedbackComponent.deleteTopic();
+    },
     getTableData() {
         ajax(`/api/topic?timestamp=${new Date().getTime()}`, 'get', {
             success: function(res){
@@ -84,8 +87,8 @@ var ownFeedbackComponent = {
             var title = titleObj.val();
             var content = contentObj.val();
 
-            if (title.length < 5 || content.length <6) {
-                showPrompt('标题不得少于5个字并且内容不得少于6个字！', 'text-danger' , $('#own-feedback .details #create-feedback span'));
+            if (title.length < 2 || content.length < 2) {
+                showPrompt('标题不得少于2个字并且内容不得少于2个字！', 'text-danger' , $('#own-feedback .details #create-feedback span'));
     
                 return;
             }
@@ -201,8 +204,8 @@ var ownFeedbackComponent = {
             var title = titleObj.val();
             var content = contentObj.val();
 
-            if (title.length < 5 || content.length <6) {
-                showPrompt('标题不得少于5个字并且内容不得少于6个字！', 'text-danger' , $('#own-feedback .details #update-feedback span'));
+            if (title.length < 2 || content.length < 2) {
+                showPrompt('标题不得少于2个字并且内容不得少于2个字！', 'text-danger' , $('#own-feedback .details #update-feedback span'));
     
                 return;
             }
@@ -274,3 +277,8 @@ var ownFeedbackComponent = {
         }, ownFeedbackComponent.currentNumber);
     }
 } 
+
+module.exports = {
+    initOwn: ownFeedbackComponent.init,
+    createOwn: createOwnFeedback
+};

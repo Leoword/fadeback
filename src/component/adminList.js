@@ -5,7 +5,7 @@ var createPagenation = require('./pagenation');
 
 var ajax = require('../util/ajax');
 
-module.exports = function () {
+function createAdmin() {
     var allAdmin = $('#all-admin');
 
     allAdmin.append(tableFactory({
@@ -16,7 +16,7 @@ module.exports = function () {
     }));
 
     adminComponent.getAdminList();
-}
+};
 
 var adminComponent = {
     adminList: [],
@@ -133,3 +133,9 @@ var adminComponent = {
 
     }
 }
+
+
+module.exports = {
+    initAdmin: adminComponent.getAdminList,
+    createAdmin: createAdmin
+};

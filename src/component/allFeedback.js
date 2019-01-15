@@ -12,8 +12,7 @@ var detailRetrive = detailFactory({
     toolbar: false
 });
 
-
-module.exports = function () {
+function createAllFeedback() {
     var allFeedback = $('#all-feedback');
 
     allFeedback.prepend(detailRetrive);
@@ -26,7 +25,7 @@ module.exports = function () {
     }));
 
     allFeedbackComponent.getAllFeedback();
-}
+};
 
 var allFeedbackComponent = {
     allFeedback: [],
@@ -133,3 +132,8 @@ var allFeedbackComponent = {
         }, allFeedbackComponent.currentNumber);
     }
 }
+
+module.exports = {
+    initAll: allFeedbackComponent.getAllFeedback,
+    createAll: createAllFeedback
+};
